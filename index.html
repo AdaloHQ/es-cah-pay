@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSON Escaper</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      body {
+        background-color: #fdfdfd;
+        color: #212121;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        font-size: 100%;
+        line-height: 1.6;
+        padding: 0;
+        margin: 0;
+      }
+      main {
+        padding: 0 0.3em;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 600px;
+      }
+      button {
+        display: block;
+        font-weight: 600;
+        text-align: center;
+        padding: 0.5em 1.5em;
+        font-size: 1.1em;
+        margin: 0 auto;
+      }
+      li {
+        list-style: none;
+      }
+      code,
+      pre {
+        background-color: #eee;
+      }
+      pre {
+        border-left: 6px solid #212121;
+        display: block;
+        font-family: monospace, monospace;
+        font-size: 1rem;
+        line-height: 1.4;
+        margin: 2em auto;
+        max-width: 100%;
+        overflow: auto;
+        padding: 1em 2em;
+        white-space: pre-wrap;
+      }
+      code {
+        word-wrap: break-word;
+      }
+      textarea {
+        margin: 1em auto;
+        padding: 0;
+        width: 100%;
+        min-height: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>JSON Escaper</h1>
+      <p>
+        Yo dawg, I heard you liked JSON, so I put some JSON in your JSON so you
+        can JSON while you JSON.
+      </p>
+      <ol>
+        <li>🍝&nbsp;&nbsp;&nbsp;Paste in JSON.</li>
+        <li>👉&nbsp;&nbsp;&nbsp;Click the button.</li>
+        <li>🤖&nbsp;&nbsp;&nbsp;Get your escaped JSON.</li>
+        <li>🤑&nbsp;&nbsp;&nbsp;Profit.</li>
+      </ol>
+      <p>
+        <strong>Privacy Notes.</strong> Only runs in your browser. No external
+        requests. No data goes to a server. Nothing is retained if you refresh.
+        Code is sloppy, but it works.
+      </p>
+      <form>
+        <textarea id="input"></textarea>
+        <button id="submit" type="button">Escape it!</button>
+      </form>
+
+      <pre><code id="output">Output will go here. I promise.</code></pre>
+    </main>
+
+    <script type="text/javascript">
+      document.getElementById("submit").addEventListener(
+        "click",
+        function (event) {
+          var i = document.getElementById("input").value;
+          document.getElementById("output").innerHTML = stringify(i);
+          event.preventDefault();
+        },
+        false
+      );
+
+      function stringify(t) {
+        //eliminate white space
+        var e = t.replace(/\s+/g, "");
+        e = escapeJavascript(e);
+        return e;
+      }
+      function escapeJavascript(t) {
+        var e = "",
+          a = 0;
+        for (a = 0; a < t.length; a++)
+          e += javascriptEscapeCode(t.charAt(a));
+        return e;
+      }
+      function javascriptEscapeCode(t) {
+        switch (t.charAt(0)) {
+          case "\r":
+            return "\\r";
+          case "\n":
+            return "";
+          case "\v":
+            return "\\v";
+          case "'":
+            return "\\'";
+          case '"':
+            return '\\"';
+          case "&":
+            return "\\&";
+          case "\\":
+            return "\\\\";
+          case "\t":
+            return "\\t";
+          case "\b":
+            return "\\b";
+          case "\f":
+            return "\\f";
+          default:
+            return t;
+        }
+      }
+    </script>
+  </body>
+</html>
