@@ -75,7 +75,9 @@
       <p>
         <strong>Privacy Notes.</strong> Only runs in your browser. No external
         requests. No data goes to a server. Nothing is retained if you refresh.
-        <a href="https://github.com/AdaloHQ/es-cah-pay">The code</a> is (probably) sloppy, but it works. It was written by a product manager, after all.
+        <a href="https://github.com/AdaloHQ/es-cah-pay">The code</a> is
+        (probably) sloppy, but it works. It was written by a product manager,
+        after all.
       </p>
       <form>
         <textarea id="input"></textarea>
@@ -90,51 +92,13 @@
         "click",
         function (event) {
           var i = document.getElementById("input").value;
-          document.getElementById("output").innerHTML = stringify(i);
+          document.getElementById("output").innerHTML = JSON.stringify(
+            JSON.parse(i)
+          );
           event.preventDefault();
         },
         false
       );
-
-      function stringify(t) {
-        //eliminate white space
-        var e = t.replace(/\s+/g, "");
-        e = escapeJavascript(e);
-        return e;
-      }
-      function escapeJavascript(t) {
-        var e = "",
-          a = 0;
-        for (a = 0; a < t.length; a++)
-          e += javascriptEscapeCode(t.charAt(a));
-        return e;
-      }
-      function javascriptEscapeCode(t) {
-        switch (t.charAt(0)) {
-          case "\r":
-            return "\\r";
-          case "\n":
-            return "";
-          case "\v":
-            return "\\v";
-          case "'":
-            return "\\'";
-          case '"':
-            return '\\"';
-          case "&":
-            return "\\&";
-          case "\\":
-            return "\\\\";
-          case "\t":
-            return "\\t";
-          case "\b":
-            return "\\b";
-          case "\f":
-            return "\\f";
-          default:
-            return t;
-        }
-      }
     </script>
   </body>
 </html>
